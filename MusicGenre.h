@@ -2,7 +2,6 @@
 #define _MUSICGENRE_H
 #include <string>
 #include<iostream>
-#include "RelationType.h"
 using namespace std;
 
 /**
@@ -41,18 +40,6 @@ public:
 	*	@return	music song number.
 	*/
 	int getSongNumber();
-
-	/**
-	*	Compare two MusicInfos.
-	*	@brief	Compare two item types by item id.
-	*	@pre	two item types should be initialized.
-	*	@post	the target file is included the new item record.
-	*	@param	data	target item for comparing.
-	*	@return	return LESS if this.genre < data.genre,
-	*			return GREATER if this.genre > data.genre then,
-	*			otherwise return EQUAL.
-	*/
-	RelationType CompareByKey(const MusicGenre &data);
 
 	/**
 	*	@brief	Display music genre on screen.

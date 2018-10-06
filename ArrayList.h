@@ -187,7 +187,7 @@ int ArrayList<RecordType>::Add(RecordType inData)
 
 		while(m_CurPointer<=m_Length) //처음부터 끝까지
 		{
-			if(CurItem.CompareByKey(inData)== GREATER || m_CurPointer==m_Length)	//만약 CurItem>inData일경우 혹은 배열의 마지막이라서 비교대상이 없는경우
+			if(CurItem > inData || m_CurPointer==m_Length)	//만약 CurItem>inData일경우 혹은 배열의 마지막이라서 비교대상이 없는경우
 			{
 				for(int i=m_Length;i>m_CurPointer;i--)	//맨뒤에서 부터 하나씩 땡긴다.
 					m_Array[i]=m_Array[i-1];	//배열 밀기
@@ -230,18 +230,16 @@ int ArrayList<RecordType>::Get(RecordType& data)
 	GetNextItem(CurItem);	//첫아이템 가져옴
 	while(m_CurPointer<m_Length)	//처음부터 끝까지
 	{
-		switch(CurItem.CompareByKey(data))	//입력 아이템과 현재 아이템을 비교
-		{
-		case EQUAL:	//일치하면
+		
+		if(CurItem == data)	{//일치하면
 			data=CurItem;	//data에 현재 아이템을 반환
 			return 1;	//성공(1)을 리턴
-			break;
-		case GREATER:	//현재 아이템의 id가 더 크면(정렬되있으므로 나머지에 찾는게 없다)
-			return 0;	//실패(0)을 리턴
-			break;
-		default:	//현재 아이템의 id가 더 작으면
-			GetNextItem(CurItem);	//다음 아이템을 가져온다.(계속 탐색)
-			break;
+		}
+		else if (CurItem > data) {	//현재 아이템의 id가 더 크면(정렬되있으므로 나머지에 찾는게 없다)
+			return 0; //실패(0)을 리턴
+		}
+		else {
+			GetNextItem(CurItem);	// 현재 아이템의 id가 더 작으면 다음 아이템을 가져온다.(계속 탐색)
 		}
 	}
 	return 0; //실패시0
@@ -295,23 +293,21 @@ int ArrayList<RecordType>::GetBinarySearch(RecordType& data )
 	int currentPos=m_Length/2;	//배열의 중간부터 시작
 	while(1)
 	{
-		switch(m_Array[currentPos].CompareByKey(data))
-		{
-		case EQUAL:	//현재 아이템과 입력 아이템의 id가 일치한다면
-			data=m_Array[currentPos];	//data에 발견한 값을 리턴
+		
+		if (m_Array[currentPos] == data) {	//현재 아이템과 입력 아이템의 id가 일치한다면
+			data = m_Array[currentPos];	//data에 발견한 값을 리턴
 			return 1;	//성공(1)을 리턴
-			break;
-		case GREATER:	//현재 아이템의 id가 입력 아이템의 id보다 크다면
-			if(currentPos==0)	//처음 배열의 값보다 작은경우
-				return 0;	//실패(0)을 리턴
-			currentPos/=2;	//더 작은쪽 인덱스의 절반로 이동
-			break;
-		case LESS:	//현재 아이템의 id가 입력 아이템의 id보다 작다면
-			if(currentPos==m_Length-1)	//마지막 배열의 값보다 큰경우
-				return 0;	//실패(0)을 리턴
-			currentPos=(currentPos+m_Length)/2;	//더 큰쪽 인덱스의 절반으로 이동
-			break;
+		}else if (m_Array[currentPos] > data) {	//현재 아이템의 id가 입력 아이템의 id보다 크다면
+			if (currentPos == 0){	//처음 배열의 값보다 작은경우
+					return 0;	//실패(0)을 리턴
+			}
+			currentPos /= 2;	//더 작은쪽 인덱스의 절반로 이동
+		}else if (m_Array[currentPos] < data) {	//현재 아이템의 id가 입력 아이템의 id보다 작다면
+			if (currentPos == m_Length - 1)	//마지막 배열의 값보다 큰경우
+					return 0;	//실패(0)을 리턴
+			currentPos = (currentPos + m_Length) / 2;	//더 큰쪽 인덱스의 절반으로 이동
 		}
+				
 	}
 	return 0;	//호출될 일 없는 리턴(WARNING 방지용)
 }
