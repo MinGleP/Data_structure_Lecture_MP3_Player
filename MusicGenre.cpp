@@ -19,17 +19,6 @@ string MusicGenre::getGenre() const {
 	return genre;
 }
 
-// 두 장르를 비교
-RelationType MusicGenre::CompareByKey(const MusicGenre &data)
-{
-	if (this->genre > data.genre)
-		return RelationType::GREATER;
-	else if (this->genre < data.genre)
-		return RelationType::LESS;
-	else
-		return RelationType::EQUAL;
-}
-
 bool MusicGenre::operator==(const MusicGenre &obj) {
 	if (genre == obj.getGenre()) {
 		return true;

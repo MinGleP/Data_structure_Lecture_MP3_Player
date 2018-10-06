@@ -13,12 +13,18 @@ public:
 
 	string getTitle() const;
 
+	string getPlaylistName() const;
+
 	void setName(string);
 
 	void setTitle(string);
 
+	void setPlaylistName(string);
+
 private:
+	string playlistName;
 	string title;
 	string name;
+	
 };
 #endif // _PLAYLISTINFO_H

@@ -1,6 +1,5 @@
 #include "MusicInfo.h"
 
-
 void MusicInfo::SetSongNumFromKB() {
 	cout << "\tSong Number : ";
 	cin >> songNum;
@@ -82,18 +81,6 @@ int MusicInfo::WriteDataToFile(ofstream& fout)
 	fout << lyrics;
 
 	return 1;
-}
-
-
-// Compare two MusicInfos.
-RelationType MusicInfo::CompareByKey(const MusicInfo &data)
-{
-	if(this->songNum > data.songNum)
-		return RelationType::GREATER;
-	else if(this->songNum < data.songNum)
-		return RelationType::LESS;
-	else
-		return RelationType::EQUAL;
 }
 
 bool MusicInfo::operator==(const MusicInfo &obj) {

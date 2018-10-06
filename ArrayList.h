@@ -1,10 +1,9 @@
-#include <iostream>
-#include <fstream>	
-#include <string>
 using namespace std;
 
 #include "MusicInfo.h"
 #include "MusicGenre.h"
+#include "SimpleMusicInfo.h"
+#include "PlayListInfo.h"
 template<class RecordType>
 class ArrayList
 {
@@ -123,6 +122,14 @@ public:
 	*/
 	int GetCurPointer();
 
+	RecordType& operator[](int index) {
+		if (index >= m_Length || index < 0) {
+			cout << "잘못된 인덱스" << endl;
+			exit(1);
+		}
+		return m_Array[index];
+	}
+
 private:
 	int MAXSIZE = 2;  // 배열의 최대 크기를 나타낸다.
 	RecordType *m_Array = new RecordType[MAXSIZE];  ///< list array.
@@ -173,31 +180,31 @@ int ArrayList<RecordType>::Add(RecordType inData)
 			tmp[i] = m_Array[i];
 		}
 		delete[] m_Array;	//원래 있던 동적할당된 리스트를 반환함
-		m_Array = new RecordType[MAXSIZE*2];	// 원래 크기의 두배 만큼의 크기를 갖는 리스트를 동적할당
+		m_Array = new RecordType[MAXSIZE * 2];	// 원래 크기의 두배 만큼의 크기를 갖는 리스트를 동적할당
 		for (int i = 0; i < MAXSIZE; i++) {		// tmp 배열에 옮겨놨던 값들을 다시 m_Array에 넣어줌
 			m_Array[i] = tmp[i];
 		}
 		delete[] tmp;	// 동적할당 된 tmp를 반환해준다.
 		MAXSIZE *= 2;	// MAXSIZE를 두배로 늘려준다.
 	}
-	
-		RecordType CurItem;
-		ResetList();
-		GetNextItem(CurItem);
 
-		while(m_CurPointer<=m_Length) //처음부터 끝까지
+	RecordType CurItem;
+	ResetList();
+	GetNextItem(CurItem);
+
+	while (m_CurPointer <= m_Length) //처음부터 끝까지
+	{
+		if (CurItem > inData || m_CurPointer == m_Length)	//만약 CurItem>inData일경우 혹은 배열의 마지막이라서 비교대상이 없는경우
 		{
-			if(CurItem > inData || m_CurPointer==m_Length)	//만약 CurItem>inData일경우 혹은 배열의 마지막이라서 비교대상이 없는경우
-			{
-				for(int i=m_Length;i>m_CurPointer;i--)	//맨뒤에서 부터 하나씩 땡긴다.
-					m_Array[i]=m_Array[i-1];	//배열 밀기
-				m_Array[m_CurPointer]=inData;	//배열 밀은 후 현재 포인터에 아이템 넣는다.
-				m_Length++;	//개수 증가
-				break;
-			}
-			GetNextItem(CurItem);	//다음아이템으로
+			for (int i = m_Length; i>m_CurPointer; i--)	//맨뒤에서 부터 하나씩 땡긴다.
+				m_Array[i] = m_Array[i - 1];	//배열 밀기
+			m_Array[m_CurPointer] = inData;	//배열 밀은 후 현재 포인터에 아이템 넣는다.
+			m_Length++;	//개수 증가
+			break;
 		}
-	
+		GetNextItem(CurItem);	//다음아이템으로
+	}
+
 	return 1;
 }
 

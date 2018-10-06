@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "RelationType.h"
 
 using namespace std;
 
@@ -30,7 +29,7 @@ public:
 	/**
 	*	destructor.
 	*/
-	~MusicInfo()	{}
+	~MusicInfo() {}
 
 	int GetSongNumber() const {
 		return songNum;
@@ -68,7 +67,7 @@ public:
 	{
 		return album;
 	}
-	
+
 	/**
 	*	@brief	Get music genre.
 	*	@pre	music genre is set.
@@ -85,7 +84,7 @@ public:
 	*	@post	none.
 	*	@return	music lyrics.
 	*/
-	string GetLyrics(){
+	string GetLyrics() {
 		return lyrics;
 	}
 
@@ -105,7 +104,7 @@ public:
 	{
 		title = inTitle;
 	}
-	
+
 	/**
 	*	@brief	Set singer name.
 	*	@pre	none.
@@ -116,7 +115,7 @@ public:
 	{
 		name = inName;
 	}
-	
+
 	/**
 	*	@brief	Set music album.
 	*	@pre	none.
@@ -127,7 +126,7 @@ public:
 	{
 		album = inAlbum;
 	}
-	
+
 	/**
 	*	@brief	Set music genre.
 	*	@pre	none.
@@ -177,9 +176,9 @@ public:
 	*	@pre	music title is set.
 	*	@post	music title is on screen.
 	*/
-	void DisplayTitleOnScreen() 
+	void DisplayTitleOnScreen()
 	{
-		cout << "\tTitle   : " << title << endl; 
+		cout << "\tTitle   : " << title << endl;
 	};
 
 	/**
@@ -187,9 +186,9 @@ public:
 	*	@pre	singer name is set.
 	*	@post	singer name is on screen.
 	*/
-	void DisplayNameOnScreen() 
+	void DisplayNameOnScreen()
 	{
-		cout << "\tName : " << name << endl; 
+		cout << "\tName : " << name << endl;
 	};
 
 	/**
@@ -197,9 +196,9 @@ public:
 	*	@pre	music album is set.
 	*	@post	music album is on screen.
 	*/
-	void DisplayAlbumOnScreen() 
+	void DisplayAlbumOnScreen()
 	{
-		cout << "\tAlbum : " << album << endl; 
+		cout << "\tAlbum : " << album << endl;
 	};
 
 	/**
@@ -273,7 +272,7 @@ public:
 	*	@post	music lyrics is set.
 	*/
 	void SetLyricsFromKB();
-	
+
 	/**
 	*	@brief	Set music record from keyboard.
 	*	@pre	none.
@@ -298,18 +297,6 @@ public:
 	*	@return	return 1 if this function works well, otherwise 0.
 	*/
 	int WriteDataToFile(ofstream& fout);
-	
-	/**
-	*	Compare two MusicInfos.
-	*	@brief	Compare two item types by item id.
-	*	@pre	two item types should be initialized.
-	*	@post	the target file is included the new item record.
-	*	@param	data	target item for comparing.
-	*	@return	return LESS if this.songNum < data.songNum, 
-	*			return GREATER if this.songNum > data.songNum then,
-	*			otherwise return EQUAL.
-	*/
-	RelationType CompareByKey(const MusicInfo &data);
 
 	bool operator==(const MusicInfo &obj);
 	bool operator>(const MusicInfo &obj);
@@ -320,10 +307,10 @@ public:
 
 protected:
 	int songNum;
-	string title;			
-	string name;		
+	string title;
+	string name;
 	string album;
-	string genre;	
+	string genre;
 	string lyrics;
 };
 
